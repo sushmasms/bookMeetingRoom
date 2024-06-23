@@ -1,0 +1,15 @@
+<div class="login">
+    <h1>BOOK A MEETING ROOM</h1>
+    <div>
+        <div class="inputDiv">
+            <label>User Name</label>
+            <input type="text" placeholder="User Name" [(ngModel)]="userName">
+        </div>
+    
+        <div class="inputDiv">
+            <label>Password</label>
+            <input type="password" placeholder="Password" [(ngModel)]="password" (keyup.enter)="login()">
+        </div>
+        <button (click)="login()">Login</button>
+    </div>
+</div>

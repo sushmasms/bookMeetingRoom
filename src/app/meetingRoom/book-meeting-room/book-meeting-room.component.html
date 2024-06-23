@@ -1,0 +1,137 @@
+<div class="header">
+  <div>
+    <h2>Book Room Meeting</h2>
+  </div>
+  <div style="display: flex;">
+    <div style="padding-left: 2rem">{{bookMeetingRoomService.loginUserName}}</div>
+    <div style="padding-left: 2rem;cursor: pointer; " (click)="logout()">Logout</div>
+  </div>
+</div>
+<div style="padding: 2vw 8vw;">
+  <button class="buttons" (click)="bookMeeting()">Book Meeting</button>
+  <br />
+  <br />
+
+
+  <div style="border: 1px solid gray;">
+    <h3 style="padding-left: 1rem;">Your Upcomming Meeting</h3>
+    <p-table [value]="upComingMeetings" class="meetingTable">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 6vw;">Sr No</th>
+          <th>User Name</th>
+          <th>Agenda</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Room</th>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="body" let-obj let-expanded="expanded" let-ri="rowIndex">
+        <tr>
+          <td style="width: 3vw;">{{ ri + 1 }}</td>
+          <td>{{obj.userName}}</td>
+          <td>{{obj.agenda}}</td>
+          <td>{{obj.MeetingDate}}</td>
+          <td>{{obj.startTime}} - {{obj.endTime}}</td>
+          <td>{{obj.MeetingRoom}} <span style="color: red; cursor: pointer;" (click)="delete(obj)">Delete</span></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <br />
+  <div style="border: 1px solid gray;">
+    <div style="padding-left: 1rem;">
+      <h3 style="margin-bottom: 0.5rem;">Rooms Meeting Details</h3>
+      <h4 style="margin: 0;">Select Meeting Room</h4>
+      <select class="dropdown" [(ngModel)]="selectedMeetingRoom" style="width: 30vw;" (ngModelChange)="onSelectMeetingRoom()">
+        <ng-container *ngFor="let data of meetingRoom">
+          <option>{{data}}</option>
+        </ng-container>
+      </select>
+    </div>
+    <p-table [value]="roomMeetingsDetails" class="meetingTable">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 6vw;">Sr No</th>
+          <th>User Name</th>
+          <th>Agenda</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Room</th>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="body" let-obj let-expanded="expanded" let-ri="rowIndex">
+        <tr>
+          <td style="width: 3vw;">{{ ri + 1 }}</td>
+          <td>{{obj.userName}}</td>
+          <td>{{obj.agenda}}</td>
+          <td>{{obj.MeetingDate}}</td>
+          <td>{{obj.startTime}}- {{obj.endTime}}</td>
+          <td>{{obj.MeetingRoom}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+<div class="dialog-wrapper" *ngIf="showBookMeetingPopup">
+  <div class="dialog">
+    <div style="display: flex;justify-content: space-between;padding-bottom: 1rem;">
+      <h2 style="margin-bottom: 0;">Book Meeting</h2>
+      <button (click)="closeDialog()" style="cursor: pointer;"><i class="pi pi-times"></i></button>
+    </div>
+
+    <div class="inputDiv">
+      <div class="dialogLabel">User Name</div>
+      <div style="padding: 0.5rem;border: 1px solid gray;border-radius: 3px;">{{meetingData.userName}}
+      </div>
+    </div>
+    <div class="inputDiv">
+      <div style="display: flex; justify-content: space-between;">
+        <div style="display: grid;">
+          <div class="dialogLabel">Meeting Date</div>
+          <input type="date" [(ngModel)]="meetingData.MeetingDate" [ngModel]="meetingData.MeetingDate | date:'yyyy-MM-dd'" style="width: 10vw;">
+        </div>
+        <div style="display: grid;">
+          <div class="dialogLabel">Start Time</div>
+          <input type="time" id="appt" name="appt" [(ngModel)]="meetingData.startTime" style="width: 10vw;"
+            (change)="ChangeTime()">
+        </div>
+        <div style="display: grid;">
+          <div class="dialogLabel">End Time</div>
+          <input type="time" id="appt" name="appt" [(ngModel)]="meetingData.endTime" style="width: 10vw;"
+            (change)="ChangeTime()">
+        </div>
+      </div>
+
+    </div>
+    <div class="inputDiv" style="color: red;" *ngIf="showWrongTimeError">
+      **time should be between 09:00AM and 06:00PM, Meeting should be atleast 30 minutes
+    </div>
+    <div class="inputDiv" *ngIf="!showMeetingRoom">
+      <button class="buttons" (click)="searchRooms()"
+        [disabled]="!meetingData.MeetingDate || meetingData.startTime=='' || meetingData.endTime=='' || showWrongTimeError ">Search
+        Rooms</button>
+    </div>
+    <div *ngIf="showMeetingRoom">
+      <div class="inputDiv">
+        <div class="dialogLabel">Meeting Room</div>
+        <select style="margin: 0;padding: 0.5rem;" [(ngModel)]="meetingData.MeetingRoom">
+          <ng-container *ngFor="let data of meetingRoom">
+            <option>{{data}}</option>
+          </ng-container>
+        </select>
+      </div>
+      <div class="inputDiv">
+        <div class="dialogLabel">Agenda</div>
+        <textarea id="w3review" name="w3review" rows="2" cols="50" [(ngModel)]="meetingData.agenda"></textarea>
+      </div>
+      <div class="inputDiv">
+        <button class="buttons" (click)="BoomMeeting()"
+          [disabled]="!meetingData.MeetingDate || meetingData.startTime=='' || meetingData.endTime=='' ">Book
+          Meeting</button>
+      </div>
+    </div>
+  </div>
+</div>

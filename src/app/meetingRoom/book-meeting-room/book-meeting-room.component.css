@@ -1,0 +1,87 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+    background: #f4f0f0;
+    padding: 0vw 2vw;
+}
+
+.meetingTable ::ng-deep .p-datatable {
+    padding-bottom: 3rem;
+}
+.dropdown{
+    padding: 0.25rem;
+    margin: 0.5rem 0;
+}
+.inputDiv{
+    display: grid;
+    padding-bottom: 1rem;
+    text-align: left;
+}
+.login{
+    display: grid;
+    justify-content: center;
+}
+.userName{
+    background: white;
+    color: black;
+}
+input{
+    padding:0.5rem
+}
+label{
+    font-size: 16px;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+}
+.buttons{
+    padding: 0.5rem;
+    width: 7vw;
+    color: white;
+    background: #3B82F6;
+    border: 1px solid #3B82F6;
+    cursor: pointer;
+}
+::ng-deep .p-dialog {
+    border-radius: 12px;
+    background-color: #ffffff;
+}
+.dialog-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .dialog {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 40vw;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    max-width: 80%;
+    text-align: center;
+  }
+  
+  .dialog h2 {
+    margin-top: 0;
+  }
+
+  .dialogLabel{
+    /* padding: 1rem 0rem 0.5rem 0rem; */
+    padding-bottom: 0.5rem ;
+    font-weight: 600;
+  }
+  button:disabled {
+    opacity: 0.6;
+    cursor: auto;
+}
+td{
+    text-align: center;
+}
